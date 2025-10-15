@@ -88,7 +88,7 @@ export default function App() {
         </button>
 
         {/* URL Display */}
-        <p className="text-xs sm:text-sm font-medium text-gray-800 mt-3 break-words">
+        <p className="text-xs sm:text-sm font-medium text-gray-100 mt-3 break-words">
           Endpoint:{" "}
           <span className="font-medium text-indigo-700 break-all">
             {["PUT", "DELETE"].includes(method) && id ? `${baseUrl}/${id}` : baseUrl}

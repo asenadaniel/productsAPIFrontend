@@ -124,7 +124,7 @@ export default function App() {
           </span>
         </p>
 
-        {/* Response Box with shimmer while loading */}
+        {/* Response Display */}
         <div
           className={`bg-gray-900 text-green-400 mt-4 p-3 sm:p-4 rounded-xl text-xs sm:text-sm overflow-auto max-h-80 sm:max-h-96 font-mono w-full transition-all ${loading ? "animate-pulse bg-gray-800 text-gray-400" : ""
             }`}

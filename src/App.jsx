@@ -27,17 +27,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold text-white mb-8 drop-shadow-lg"> Product API </h1>
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center p-4 sm:p-6">
+      <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 drop-shadow-lg text-center">
+        Product API
+      </h1>
 
-      <div className="bg-gray-300 shadow-2xl rounded-xl w-full max-w-3xl p-6">
+      <div className="bg-gray-300 shadow-2xl rounded-xl w-full max-w-3xl p-4 sm:p-6">
         {/* Method Buttons */}
-        <div className="flex gap-3 mb-4 justify-center">
+        <div className="flex flex-wrap gap-3 mb-4 justify-center">
           {["GET", "POST", "PUT", "DELETE"].map((m) => (
             <button
               key={m}
               onClick={() => setMethod(m)}
-              className={`px-5 py-2 rounded-lg font-semibold text-white transition-all transform
+              className={`px-4 sm:px-5 py-2 rounded-lg font-semibold text-white transition-all transform 
                 ${method === m
                   ? `scale-105 shadow-lg ring-4 ring-white/30 ${methodColors[m]}`
                   : `opacity-80 ${methodColors[m]}`
@@ -53,7 +55,7 @@ export default function App() {
           value={baseUrl}
           onChange={(e) => setBaseUrl(e.target.value)}
           placeholder="Enter API base URL"
-          className="w-full border-2 border-gray-300 p-3 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 font-medium text-white"
+          className="w-full border-2 border-gray-300 p-2 sm:p-3 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-700 font-medium text-white text-sm sm:text-base"
         />
 
         {/* ID Input for PUT/DELETE */}
@@ -62,7 +64,7 @@ export default function App() {
             value={id}
             onChange={(e) => setId(e.target.value)}
             placeholder="Enter Product ID"
-            className="w-full border-2 border-gray-300 p-3 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium text-white bg-gray-700"
+            className="w-full border-2 border-gray-300 p-2 sm:p-3 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium text-white bg-gray-700 text-sm sm:text-base"
           />
         )}
 
@@ -72,7 +74,7 @@ export default function App() {
             value={body}
             onChange={(e) => setBody(e.target.value)}
             rows={5}
-            className="w-full border-2 border-gray-300 p-3 rounded-lg font-mono text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 font-medium text-white"
+            className="w-full border-2 border-gray-300 p-2 sm:p-3 rounded-lg font-mono text-xs sm:text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-800 font-medium text-white"
             placeholder='{"name": "Example Product", "price": 100}'
           />
         )}
@@ -80,21 +82,21 @@ export default function App() {
         {/* Send Button */}
         <button
           onClick={handleSend}
-          className="w-full bg-indigo-800 text-white py-3 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-lg"
+          className="w-full sm:w-auto bg-indigo-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-lg sm:text-xl hover:bg-indigo-700 transition-all shadow-lg block sm:inline-block"
         >
           Send Request
         </button>
 
         {/* URL Display */}
-        <p className="text-sm font-medium text-gray-800 mt-3">
+        <p className="text-xs sm:text-sm font-medium text-gray-800 mt-3 break-words">
           Endpoint:{" "}
-          <span className="font-medium text-indigo-700">
+          <span className="font-medium text-indigo-700 break-all">
             {["PUT", "DELETE"].includes(method) && id ? `${baseUrl}/${id}` : baseUrl}
           </span>
         </p>
 
         {/* Response Box */}
-        <pre className="bg-gray-900 text-green-400 mt-4 p-4 rounded-xl text-sm overflow-auto max-h-96 font-mono">
+        <pre className="bg-gray-900 text-green-400 mt-4 p-3 sm:p-4 rounded-xl text-xs sm:text-sm overflow-auto max-h-80 sm:max-h-96 font-mono">
           {response || "// Response will appear here"}
         </pre>
       </div>

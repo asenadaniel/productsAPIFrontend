@@ -32,7 +32,7 @@ export default function App() {
         Product API
       </h1>
 
-      <div className="bg-gray-300 shadow-2xl rounded-xl w-full max-w-3xl p-4 sm:p-6">
+      <div className="bg-gray-900 shadow-2xl rounded-xl w-full max-w-3xl p-4 sm:p-6">
         {/* Method Buttons */}
         <div className="flex flex-wrap gap-3 mb-4 justify-center">
           {["GET", "POST", "PUT", "DELETE"].map((m) => (
@@ -82,7 +82,7 @@ export default function App() {
         {/* Send Button */}
         <button
           onClick={handleSend}
-          className="w-full sm:w-auto bg-indigo-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-lg sm:text-xl hover:bg-indigo-700 transition-all shadow-lg block sm:inline-block"
+          className="w-full sm:w-auto bg-indigo-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-lg sm:text-xl hover:bg-indigo-700 transition-all cursor-pointer shadow-lg block sm:inline-block"
         >
           Send Request
         </button>

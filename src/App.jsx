@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function App() {
   const [method, setMethod] = useState("GET");
-  const [baseUrl, setBaseUrl] = useState("http://localhost:3000/api/product");
+  const [baseUrl, setBaseUrl] = useState("https://productsapi-vt92.onrender.com/api/product");
   const [id, setId] = useState("");
   const [body, setBody] = useState("{}");
   const [response, setResponse] = useState("");
@@ -82,7 +82,7 @@ export default function App() {
           onClick={handleSend}
           className="w-full bg-indigo-800 text-white py-3 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-lg"
         >
-          🚀 Send Request
+          Send Request
         </button>
 
         {/* URL Display */}

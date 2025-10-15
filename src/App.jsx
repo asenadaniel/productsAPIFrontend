@@ -10,7 +10,8 @@ export default function App() {
   const [loading, setLoading] = useState(false); // ✅ loading state
 
   const handleSend = async () => {
-    setLoading(true); // show loader
+    setLoading(true);
+    setResponse(""); // Clear old response
     try {
       const url = ["PUT", "DELETE"].includes(method) && id ? `${baseUrl}/${id}` : baseUrl;
       const data = ["POST", "PUT"].includes(method) ? JSON.parse(body) : undefined;
@@ -19,7 +20,7 @@ export default function App() {
     } catch (err) {
       setResponse(err.response?.data ? JSON.stringify(err.response.data, null, 2) : err.message);
     } finally {
-      setLoading(false); // hide loader
+      setLoading(false);
     }
   };
 
@@ -33,10 +34,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center p-4 sm:p-6">
       <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 drop-shadow-lg text-center">
-        Product API Tester
+        Product API
       </h1>
 
-      <div className="bg-gray-300 shadow-2xl rounded-xl w-full max-w-3xl p-4 sm:p-6">
+      <div className="bg-gray-900 shadow-2xl rounded-xl w-full max-w-3xl p-4 sm:p-6">
         {/* Method Buttons */}
         <div className="flex flex-wrap gap-3 mb-4 justify-center">
           {["GET", "POST", "PUT", "DELETE"].map((m) => (
@@ -83,11 +84,12 @@ export default function App() {
           />
         )}
 
-        {/* Send Button with Loading */}
+        {/* Send Button with Loader */}
         <button
           onClick={handleSend}
-          className="w-full sm:w-auto bg-indigo-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-lg sm:text-xl hover:bg-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2"
-          disabled={loading} // disable while loading
+          disabled={loading}
+          className={`w-full sm:w-auto bg-indigo-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-lg sm:text-xl transition-all shadow-lg flex items-center justify-center gap-2 ${loading ? "opacity-70 cursor-not-allowed" : "hover:bg-indigo-700 cursor-pointer"
+            }`}
         >
           {loading && (
             <svg
@@ -115,17 +117,20 @@ export default function App() {
         </button>
 
         {/* URL Display */}
-        <p className="text-xs sm:text-sm font-medium text-gray-800 mt-3 break-words">
+        <p className="text-xs sm:text-sm font-medium text-gray-100 mt-3 break-words">
           Endpoint:{" "}
-          <span className="font-medium text-indigo-700 break-all">
+          <span className="font-medium text-indigo-300 break-all">
             {["PUT", "DELETE"].includes(method) && id ? `${baseUrl}/${id}` : baseUrl}
           </span>
         </p>
 
-        {/* Response Box */}
-        <pre className="bg-gray-900 text-green-400 mt-4 p-3 sm:p-4 rounded-xl text-xs sm:text-sm overflow-auto max-h-80 sm:max-h-96 font-mono">
-          {response || "// Response will appear here"}
-        </pre>
+        {/* Response Box with shimmer while loading */}
+        <div
+          className={`bg-gray-900 text-green-400 mt-4 p-3 sm:p-4 rounded-xl text-xs sm:text-sm overflow-auto max-h-80 sm:max-h-96 font-mono w-full transition-all ${loading ? "animate-pulse bg-gray-800 text-gray-400" : ""
+            }`}
+        >
+          <pre>{response || (loading ? "// Fetching data..." : "// Response will appear here")}</pre>
+        </div>
       </div>
     </div>
   );

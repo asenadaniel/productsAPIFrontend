@@ -7,8 +7,10 @@ export default function App() {
   const [id, setId] = useState("");
   const [body, setBody] = useState("{}");
   const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ loading state
 
   const handleSend = async () => {
+    setLoading(true); // show loader
     try {
       const url = ["PUT", "DELETE"].includes(method) && id ? `${baseUrl}/${id}` : baseUrl;
       const data = ["POST", "PUT"].includes(method) ? JSON.parse(body) : undefined;
@@ -16,6 +18,8 @@ export default function App() {
       setResponse(JSON.stringify(res.data, null, 2));
     } catch (err) {
       setResponse(err.response?.data ? JSON.stringify(err.response.data, null, 2) : err.message);
+    } finally {
+      setLoading(false); // hide loader
     }
   };
 
@@ -29,10 +33,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center p-4 sm:p-6">
       <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 drop-shadow-lg text-center">
-        Product API
+        Product API Tester
       </h1>
 
-      <div className="bg-gray-900 shadow-2xl rounded-xl w-full max-w-3xl p-4 sm:p-6">
+      <div className="bg-gray-300 shadow-2xl rounded-xl w-full max-w-3xl p-4 sm:p-6">
         {/* Method Buttons */}
         <div className="flex flex-wrap gap-3 mb-4 justify-center">
           {["GET", "POST", "PUT", "DELETE"].map((m) => (
@@ -79,18 +83,41 @@ export default function App() {
           />
         )}
 
-        {/* Send Button */}
+        {/* Send Button with Loading */}
         <button
           onClick={handleSend}
-          className="w-full sm:w-auto bg-indigo-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-lg sm:text-xl hover:bg-indigo-700 transition-all cursor-pointer shadow-lg block sm:inline-block"
+          className="w-full sm:w-auto bg-indigo-800 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-lg sm:text-xl hover:bg-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2"
+          disabled={loading} // disable while loading
         >
-          Send Request
+          {loading && (
+            <svg
+              className="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
+          )}
+          {loading ? "Loading..." : "Send Request"}
         </button>
 
         {/* URL Display */}
-        <p className="text-xs sm:text-sm font-medium text-gray-100 mt-3 break-words">
+        <p className="text-xs sm:text-sm font-medium text-gray-800 mt-3 break-words">
           Endpoint:{" "}
-          <span className="font-medium text-indigo-300 break-all">
+          <span className="font-medium text-indigo-700 break-all">
             {["PUT", "DELETE"].includes(method) && id ? `${baseUrl}/${id}` : baseUrl}
           </span>
         </p>
